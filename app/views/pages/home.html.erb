@@ -1,0 +1,117 @@
+<% content_for :title, "AnsibleMage - Mastering True Names" %>
+
+<!-- Hero Section -->
+<section class="text-center py-16 animate-pixelate-in">
+  <div class="flex flex-col items-center gap-8">
+    <!-- Pixel Mage Character -->
+    <div class="w-48 h-48 animate-float">
+      <%= render "shared/pixel_mage_large" %>
+    </div>
+
+    <!-- Title -->
+    <div>
+      <h1 class="pixel-title text-4xl mb-4">
+        AnsibleMage
+      </h1>
+      <p class="font-pixel text-xs text-neon-green mb-6">
+        Mastering the True Names of digital entities
+      </p>
+      <p class="text-moon-gray max-w-xl mx-auto leading-relaxed">
+        Broadcasting immersive products - web, virtual models, and visual vibes -
+        across the galaxy via the Ansible.
+      </p>
+    </div>
+
+    <!-- CTA Buttons -->
+    <div class="flex gap-4 mt-4">
+      <%= link_to "Explore Blog", posts_path, class: "pixel-btn" %>
+      <%= link_to "View Projects", projects_path, class: "pixel-btn pixel-btn-secondary" %>
+    </div>
+  </div>
+</section>
+
+<!-- Quote Section -->
+<section class="py-12 text-center border-y-4 border-deep-purple my-12">
+  <blockquote class="max-w-2xl mx-auto">
+    <p class="text-xl italic text-moon-gray mb-4">
+      "Light is the left hand of darkness,<br>
+      and code the right hand of creation."
+    </p>
+    <footer class="font-pixel text-xs text-space-purple">
+      - Ansible Station Manifesto
+    </footer>
+  </blockquote>
+</section>
+
+<!-- Recent Posts Section -->
+<section class="py-12">
+  <h2 class="pixel-title text-xl mb-8 text-center">
+    Latest Transmissions
+  </h2>
+
+  <% if @recent_posts&.any? %>
+    <div class="grid md:grid-cols-3 gap-6">
+      <% @recent_posts.each do |post| %>
+        <%= render "posts/post_card", post: post %>
+      <% end %>
+    </div>
+
+    <div class="text-center mt-8">
+      <%= link_to "View All Posts", posts_path, class: "pixel-btn pixel-btn-secondary" %>
+    </div>
+  <% else %>
+    <div class="text-center py-12">
+      <div class="w-24 h-24 mx-auto mb-4 opacity-50">
+        <%= render "shared/pixel_mage" %>
+      </div>
+      <p class="text-moon-gray font-pixel text-xs">
+        No transmissions yet...
+      </p>
+      <p class="text-moon-gray text-sm mt-2">
+        The mage is preparing new content.
+      </p>
+    </div>
+  <% end %>
+</section>
+
+<!-- Features Section -->
+<section class="py-12">
+  <h2 class="pixel-title text-xl mb-8 text-center">
+    Station Features
+  </h2>
+
+  <div class="grid md:grid-cols-3 gap-6">
+    <!-- Vibe Coding -->
+    <div class="pixel-card text-center">
+      <div class="text-4xl mb-4">
+        <span class="text-neon-cyan">{"}"</span>
+      </div>
+      <h3 class="font-pixel text-sm text-neon-cyan mb-2">Vibe Coding</h3>
+      <p class="text-moon-gray text-sm">
+        AI-assisted development workflow. From requirements to deployment.
+      </p>
+    </div>
+
+    <!-- True Names -->
+    <div class="pixel-card text-center">
+      <div class="text-4xl mb-4">
+        <span class="text-neon-magenta">*</span>
+      </div>
+      <h3 class="font-pixel text-sm text-neon-magenta mb-2">True Names</h3>
+      <p class="text-moon-gray text-sm">
+        Mastering the essence of digital objects through code and configuration.
+      </p>
+    </div>
+
+    <!-- Ansible -->
+    <div class="pixel-card text-center">
+      <div class="text-4xl mb-4">
+        <span class="text-neon-green">&gt;_</span>
+      </div>
+      <h3 class="font-pixel text-sm text-neon-green mb-2">Ansible</h3>
+      <p class="text-moon-gray text-sm">
+        Communication across infinite distances. Automation beyond limits.
+      </p>
+    </div>
+  </div>
+</section>

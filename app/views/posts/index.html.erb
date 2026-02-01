@@ -1,0 +1,29 @@
+<% content_for :title, "Blog - AnsibleMage" %>
+
+<section class="py-8 animate-pixelate-in">
+  <!-- Header -->
+  <div class="text-center mb-12">
+    <h1 class="pixel-title text-3xl mb-4">Transmissions</h1>
+    <p class="text-moon-gray">Broadcasts from the Ansible Station</p>
+  </div>
+
+  <% if @posts.any? %>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% @posts.each do |post| %>
+        <%= render "posts/post_card", post: post %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center py-16">
+      <div class="w-32 h-32 mx-auto mb-6 opacity-50">
+        <%= render "shared/pixel_mage_large" %>
+      </div>
+      <p class="font-pixel text-sm text-moon-gray mb-2">
+        No transmissions yet...
+      </p>
+      <p class="text-moon-gray">
+        The mage is preparing new content. Check back soon!
+      </p>
+    </div>
+  <% end %>
+</section>

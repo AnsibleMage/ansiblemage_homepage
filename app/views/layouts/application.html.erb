@@ -1,30 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
   <head>
-    <title><%= content_for(:title) || "Ansiblemage Homepage" %></title>
+    <title><%= content_for(:title) || "AnsibleMage - Mastering True Names" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="description" content="Mastering the True Names of digital entities via Ansible">
+    <meta name="theme-color" content="#0D0D0D">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
+  <body class="min-h-screen flex flex-col stars-bg">
+    <%= render "shared/navbar" %>
+
+    <% if notice.present? %>
+      <div class="fixed top-20 right-4 z-50 animate-pixelate-in">
+        <div class="pixel-card border-neon-green">
+          <p class="font-pixel text-xs text-neon-green"><%= notice %></p>
+        </div>
+      </div>
+    <% end %>
+
+    <% if alert.present? %>
+      <div class="fixed top-20 right-4 z-50 animate-pixelate-in">
+        <div class="pixel-card border-pixel-red">
+          <p class="font-pixel text-xs text-pixel-red"><%= alert %></p>
+        </div>
+      </div>
+    <% end %>
+
+    <main class="flex-1">
+      <div class="max-w-6xl mx-auto px-6 py-8">
+        <%= yield %>
+      </div>
     </main>
+
+    <%= render "shared/footer" %>
   </body>
 </html>
