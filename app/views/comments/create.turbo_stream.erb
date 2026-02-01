@@ -1,0 +1,10 @@
+<%= turbo_stream.prepend "comments-list" do %>
+  <%= render "comments/comment", comment: @comment %>
+<% end %>
+
+<%= turbo_stream.replace "new_comment" do %>
+  <%= render "comments/form", post: @post %>
+<% end %>
+
+<%= turbo_stream.replace "comments-empty" do %>
+<% end %>

@@ -1,0 +1,13 @@
+<%= form_with model: [post, Comment.new], class: "space-y-4" do |f| %>
+  <div class="flex items-start gap-4">
+    <% if current_user %>
+      <img src="<%= current_user.avatar_url %>" alt="Avatar" class="w-10 h-10 rounded-none border-2 border-neon-cyan pixel-render">
+    <% end %>
+    <div class="flex-1">
+      <%= f.text_area :content, rows: 3, class: "pixel-input resize-none", placeholder: "Write a comment..." %>
+    </div>
+  </div>
+  <div class="text-right">
+    <%= f.submit "Post Comment", class: "pixel-btn cursor-pointer" %>
+  </div>
+<% end %>

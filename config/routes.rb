@@ -13,9 +13,9 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
   end
 
-  # Authentication
-  get "auth/github/callback" => "sessions#create", as: :auth_github
-  get "auth/github" => "sessions#github", as: :github_login
+  # Authentication (OmniAuth)
+  get "auth/:provider/callback" => "sessions#create"
+  get "auth/failure" => "sessions#failure"
   delete "logout" => "sessions#destroy", as: :logout
 
   # Admin

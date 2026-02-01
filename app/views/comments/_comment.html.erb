@@ -1,0 +1,29 @@
+<div id="<%= dom_id(comment) %>" class="pixel-card mb-4 animate-pixelate-in">
+  <div class="flex items-start gap-4">
+    <!-- Avatar -->
+    <img src="<%= comment.user.avatar_url %>" alt="<%= comment.user.display_name %>" class="w-10 h-10 rounded-none border-2 border-space-purple pixel-render">
+
+    <!-- Content -->
+    <div class="flex-1">
+      <div class="flex items-center justify-between mb-2">
+        <div>
+          <span class="font-pixel text-xs text-neon-cyan"><%= comment.user.display_name %></span>
+          <% if comment.user.admin? %>
+            <span class="pixel-badge text-[8px] ml-2 bg-neon-green/20 border-neon-green text-neon-green">Admin</span>
+          <% end %>
+        </div>
+        <span class="text-xs text-moon-gray"><%= time_ago_in_words(comment.created_at) %> ago</span>
+      </div>
+
+      <p class="text-star-white"><%= comment.content %></p>
+
+      <% if current_user == comment.user || current_user&.admin? %>
+        <div class="mt-3">
+          <%= button_to post_comment_path(comment.post, comment), method: :delete, class: "text-xs text-pixel-red hover:text-pixel-red/70", data: { turbo_confirm: "Delete this comment?" } do %>
+            Delete
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

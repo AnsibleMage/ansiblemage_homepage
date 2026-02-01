@@ -174,19 +174,38 @@
 
   /* Pixel Heart (Like) */
   .pixel-heart {
-    @apply inline-block w-6 h-6 cursor-pointer;
     color: var(--color-moon-gray);
     transition: all 0.2s;
   }
 
-  .pixel-heart:hover {
-    color: var(--color-pixel-heart);
-    transform: scale(1.2);
+  /* Like Button */
+  .pixel-like-btn {
+    @apply p-3 rounded-none cursor-pointer;
+    background: var(--color-dark-space);
+    border: 3px solid var(--color-moon-gray);
+    color: var(--color-moon-gray);
+    transition: all 0.15s ease;
   }
 
-  .pixel-heart.liked {
+  .pixel-like-btn:hover {
+    border-color: var(--color-pixel-heart);
     color: var(--color-pixel-heart);
-    animation: heartbeat 0.5s ease-in-out;
+    transform: scale(1.1);
+  }
+
+  .pixel-like-btn--active {
+    border-color: var(--color-pixel-heart);
+    color: var(--color-pixel-heart);
+    background: rgba(255, 64, 129, 0.1);
+  }
+
+  .pixel-like-btn--active:hover {
+    color: var(--color-moon-gray);
+    border-color: var(--color-moon-gray);
+  }
+
+  .pixel-like-btn--active .pixel-heart {
+    color: var(--color-pixel-heart);
   }
 
   /* Stars Background */
