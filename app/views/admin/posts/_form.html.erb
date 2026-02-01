@@ -1,0 +1,40 @@
+<%= form_with model: [:admin, post], class: "space-y-6" do |f| %>
+  <% if post.errors.any? %>
+    <div class="pixel-card border-pixel-red">
+      <h3 class="font-pixel text-xs text-pixel-red mb-2">Errors:</h3>
+      <ul class="list-disc list-inside text-pixel-red text-sm">
+        <% post.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :title, class: "block font-pixel text-xs text-neon-cyan mb-2" %>
+    <%= f.text_field :title, class: "pixel-input", placeholder: "Post title..." %>
+  </div>
+
+  <div>
+    <%= f.label :content, class: "block font-pixel text-xs text-neon-cyan mb-2" %>
+    <%= f.text_area :content, rows: 15, class: "pixel-input font-mono",
+        placeholder: "Write your content in Markdown..." %>
+    <p class="text-xs text-moon-gray mt-2">Supports Markdown formatting</p>
+  </div>
+
+  <div>
+    <%= f.label :excerpt, class: "block font-pixel text-xs text-neon-cyan mb-2" %>
+    <%= f.text_area :excerpt, rows: 3, class: "pixel-input",
+        placeholder: "Brief summary (auto-generated if empty)..." %>
+  </div>
+
+  <div class="flex items-center gap-3">
+    <%= f.check_box :published, class: "w-5 h-5 accent-neon-cyan" %>
+    <%= f.label :published, "Publish immediately", class: "text-star-white" %>
+  </div>
+
+  <div class="flex gap-4 pt-4">
+    <%= f.submit post.persisted? ? "Update Post" : "Create Post", class: "pixel-btn cursor-pointer" %>
+    <%= link_to "Cancel", admin_posts_path, class: "pixel-btn pixel-btn-secondary" %>
+  </div>
+<% end %>

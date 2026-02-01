@@ -1,0 +1,18 @@
+<% content_for :title, "New Post - Admin" %>
+
+<section class="py-8">
+  <div class="mb-8">
+    <%= link_to admin_posts_path, class: "inline-flex items-center gap-2 text-moon-gray hover:text-neon-cyan" do %>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+      <span class="font-pixel text-xs">Back to Posts</span>
+    <% end %>
+  </div>
+
+  <h1 class="pixel-title text-2xl mb-8">New Post</h1>
+
+  <div class="pixel-card">
+    <%= render "form", post: @post %>
+  </div>
+</section>

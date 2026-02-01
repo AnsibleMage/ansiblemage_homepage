@@ -1,0 +1,56 @@
+<% content_for :title, "Admin - Posts" %>
+
+<section class="py-8">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="pixel-title text-2xl">Manage Posts</h1>
+    <%= link_to new_admin_post_path, class: "pixel-btn" do %>
+      + New Post
+    <% end %>
+  </div>
+
+  <div class="pixel-card">
+    <table class="w-full">
+      <thead>
+        <tr class="border-b-2 border-deep-purple">
+          <th class="text-left py-3 px-4 font-pixel text-xs text-neon-cyan">Title</th>
+          <th class="text-center py-3 px-4 font-pixel text-xs text-neon-cyan">Status</th>
+          <th class="text-center py-3 px-4 font-pixel text-xs text-neon-cyan">Likes</th>
+          <th class="text-center py-3 px-4 font-pixel text-xs text-neon-cyan">Date</th>
+          <th class="text-right py-3 px-4 font-pixel text-xs text-neon-cyan">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @posts.each do |post| %>
+          <tr class="border-b border-deep-purple hover:bg-deep-purple/30">
+            <td class="py-3 px-4">
+              <%= link_to post.title, post_path(post), class: "text-star-white hover:text-neon-cyan" %>
+            </td>
+            <td class="py-3 px-4 text-center">
+              <% if post.published? %>
+                <span class="pixel-badge bg-neon-green/20 border-neon-green text-neon-green">Published</span>
+              <% else %>
+                <span class="pixel-badge bg-moon-gray/20 border-moon-gray text-moon-gray">Draft</span>
+              <% end %>
+            </td>
+            <td class="py-3 px-4 text-center text-moon-gray">
+              <%= post.likes_count %>
+            </td>
+            <td class="py-3 px-4 text-center text-moon-gray text-sm">
+              <%= post.created_at.strftime("%Y.%m.%d") %>
+            </td>
+            <td class="py-3 px-4 text-right">
+              <%= link_to "Edit", edit_admin_post_path(post), class: "text-neon-cyan hover:text-neon-magenta mr-4" %>
+              <%= button_to "Delete", admin_post_path(post), method: :delete,
+                  class: "text-pixel-red hover:text-pixel-red/70",
+                  data: { turbo_confirm: "Are you sure?" } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <% if @posts.empty? %>
+      <p class="text-center py-8 text-moon-gray">No posts yet. Create your first post!</p>
+    <% end %>
+  </div>
+</section>
