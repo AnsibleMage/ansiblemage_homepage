@@ -24,16 +24,16 @@
     <%= render "shared/navbar" %>
 
     <% if notice.present? %>
-      <div class="fixed top-20 right-4 z-50 animate-pixelate-in">
-        <div class="pixel-card border-neon-green">
+      <div class="fixed top-20 right-4 z-50 animate-pixelate-in" data-controller="flash">
+        <div class="pixel-card border-neon-green cursor-pointer" data-action="click->flash#dismiss">
           <p class="font-pixel text-xs text-neon-green"><%= notice %></p>
         </div>
       </div>
     <% end %>
 
     <% if alert.present? %>
-      <div class="fixed top-20 right-4 z-50 animate-pixelate-in">
-        <div class="pixel-card border-pixel-red">
+      <div class="fixed top-20 right-4 z-50 animate-pixelate-in" data-controller="flash">
+        <div class="pixel-card border-pixel-red cursor-pointer" data-action="click->flash#dismiss">
           <p class="font-pixel text-xs text-pixel-red"><%= alert %></p>
         </div>
       </div>
