@@ -7,6 +7,25 @@
     <p class="text-moon-gray">Broadcasts from the Ansible Station</p>
   </div>
 
+  <!-- Tag Filter Bar -->
+  <% if @all_tags.any? %>
+    <div class="mb-8" data-controller="tag-filter">
+      <div class="flex flex-wrap gap-2 justify-center">
+        <%= link_to "All", posts_path,
+            class: "pixel-badge #{params[:tag].blank? ? 'bg-neon-cyan text-deep-space' : 'bg-deep-purple text-moon-gray hover:bg-space-purple'}",
+            data: { turbo_frame: "posts" } %>
+
+        <% @all_tags.each do |tag| %>
+          <%= link_to tag, posts_path(tag: tag),
+              class: "pixel-badge #{params[:tag] == tag ? 'bg-neon-cyan text-deep-space' : 'bg-deep-purple text-moon-gray hover:bg-space-purple'}",
+              data: { turbo_frame: "posts" } %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= turbo_frame_tag "posts" do %>
+
   <% if @posts.any? %>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       <% @posts.each do |post| %>
@@ -18,12 +37,23 @@
       <div class="w-32 h-32 mx-auto mb-6 opacity-50">
         <%= render "shared/pixel_mage_large" %>
       </div>
-      <p class="font-pixel text-sm text-moon-gray mb-2">
-        No transmissions yet...
-      </p>
-      <p class="text-moon-gray">
-        The mage is preparing new content. Check back soon!
-      </p>
+      <% if params[:q].present? %>
+        <p class="font-pixel text-sm text-moon-gray mb-2">
+          No results found for "<%= params[:q] %>"
+        </p>
+        <p class="text-moon-gray mb-4">
+          Try a different search term or browse all posts.
+        </p>
+        <%= link_to "Clear Search", posts_path, class: "pixel-btn inline-block", data: { turbo_frame: "posts" } %>
+      <% else %>
+        <p class="font-pixel text-sm text-moon-gray mb-2">
+          No transmissions yet...
+        </p>
+        <p class="text-moon-gray">
+          The mage is preparing new content. Check back soon!
+        </p>
+      <% end %>
     </div>
+  <% end %>
   <% end %>
 </section>

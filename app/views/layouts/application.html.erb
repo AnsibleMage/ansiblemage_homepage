@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-controller="dark-mode">
   <head>
     <title><%= content_for(:title) || "AnsibleMage - Mastering True Names" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -9,6 +9,17 @@
     <meta name="theme-color" content="#0D0D0D">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <!-- FOUC Prevention: Apply theme before first paint -->
+    <script>
+      (function() {
+        const theme = localStorage.getItem('theme') ||
+                     (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
 
     <%= yield :head %>
 

@@ -1,21 +1,21 @@
 class PostsController < ApplicationController
+  include PostLikeable
+
+  before_action :set_post, only: [:show]
+
   def index
-    @posts = Post.published.recent
+    # Search takes precedence over tag filtering
+    if params[:q].present?
+      @posts = Post.search(params[:q])
+    else
+      @posts = Post.published.recent
+      @posts = @posts.tagged_with(params[:tag]) if params[:tag].present?
+    end
+    @all_tags = Post.all_tags
   end
 
   def show
-    @post = Post.find_by!(slug: params[:id])
-    @liked = user_liked?(@post)
+    @liked = user_liked?
     @comments = @post.comments.includes(:user).order(created_at: :desc) if defined?(Comment)
-  end
-
-  private
-
-  def user_liked?(post)
-    if current_user
-      post.likes.exists?(user: current_user)
-    else
-      post.likes.exists?(ip_address: request.remote_ip, user: nil)
-    end
   end
 end

@@ -44,7 +44,7 @@ module Admin
     end
 
     def post_params
-      params.require(:post).permit(:title, :content, :excerpt, :published)
+      params.require(:post).permit(:title, :content, :excerpt, :published, :tags)
     end
 
     def require_admin

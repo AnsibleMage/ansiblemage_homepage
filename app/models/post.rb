@@ -16,10 +16,48 @@ class Post < ApplicationRecord
   scope :published, -> { where(published: true) }
   scope :drafts, -> { where(published: false) }
   scope :recent, -> { order(created_at: :desc) }
+  scope :tagged_with, ->(tag) {
+    where("tags LIKE ?", "%#{sanitize_sql_like(tag)}%") if tag.present?
+  }
+  scope :search, ->(query) {
+    return published.recent if query.blank?
+
+    published.where(
+      'title LIKE ? OR content LIKE ? OR excerpt LIKE ?',
+      "%#{sanitize_sql_like(query)}%",
+      "%#{sanitize_sql_like(query)}%",
+      "%#{sanitize_sql_like(query)}%"
+    ).recent
+  }
 
   # Find by slug
   def to_param
     slug
+  end
+
+  # Tags getter - returns array from JSON text column
+  def tags
+    return [] if self[:tags].blank?
+    JSON.parse(self[:tags])
+  rescue JSON::ParserError
+    []
+  end
+
+  # Tags setter - stores array as JSON in text column
+  def tags=(value)
+    value = value.split(',').map(&:strip) if value.is_a?(String)
+    self[:tags] = value.to_a.compact.uniq.to_json
+  end
+
+  # Get all unique tags across all posts
+  def self.all_tags
+    published
+      .where.not(tags: [nil, ''])
+      .pluck(:tags)
+      .map { |t| JSON.parse(t) rescue [] }
+      .flatten
+      .uniq
+      .sort
   end
 
   private

@@ -28,6 +28,13 @@
         placeholder: "Brief summary (auto-generated if empty)..." %>
   </div>
 
+  <div>
+    <%= f.label :tags, class: "block font-pixel text-xs text-neon-cyan mb-2" %>
+    <%= f.text_field :tags, value: post.tags.join(', '), class: "pixel-input",
+        placeholder: "Enter tags separated by commas (e.g., Rails, Ruby, Tutorial)" %>
+    <p class="text-xs text-moon-gray mt-2">Comma-separated tags for categorization</p>
+  </div>
+
   <div class="flex items-center gap-3">
     <%= f.check_box :published, class: "w-5 h-5 accent-neon-cyan" %>
     <%= f.label :published, "Publish immediately", class: "text-star-white" %>

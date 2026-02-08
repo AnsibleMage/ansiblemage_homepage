@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class LikesController < ApplicationController
+  include PostLikeable
+
   before_action :set_post
 
   def create
@@ -37,22 +39,10 @@ class LikesController < ApplicationController
 
   private
 
-  def set_post
-    @post = Post.find_by!(slug: params[:post_id])
-  end
-
   def like_params
     {
       ip_address: request.remote_ip,
       user: current_user
     }
-  end
-
-  def find_user_like
-    if current_user
-      @post.likes.find_by(user: current_user)
-    else
-      @post.likes.find_by(ip_address: request.remote_ip, user: nil)
-    end
   end
 end

@@ -3,6 +3,9 @@
 /* Pixel Font */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+KR:wght@400;700&display=swap');
 
+/* Dark Mode Variant */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Custom Theme */
 @theme {
   /* Space/Cyberpunk Colors */
@@ -32,17 +35,50 @@
   --shadow-neon: 0 0 10px var(--color-neon-cyan), 0 0 20px var(--color-neon-cyan);
 }
 
+/* CSS Variables for Theme System */
+:root {
+  /* Light Mode Colors (WCAG AA compliant) */
+  --theme-bg-primary: #FFFFFF;
+  --theme-bg-secondary: #F5F5F5;
+  --theme-bg-card: #FAFAFA;
+  --theme-text-primary: #1A1A1A;
+  --theme-text-secondary: #4A4A4A;
+  --theme-border: #E0E0E0;
+  --theme-accent: #0066CC;
+}
+
+:root.dark {
+  /* Dark Mode Colors (WCAG AA compliant) */
+  --theme-bg-primary: #0D0D0D;
+  --theme-bg-secondary: #1A1A2E;
+  --theme-bg-card: #2D1B4E;
+  --theme-text-primary: #F0F0F0;
+  --theme-text-secondary: #B0B0B0;
+  --theme-border: #6B5B95;
+  --theme-accent: #00FFFF;
+}
+
 /* Base Styles */
 @layer base {
   html {
     font-family: var(--font-body);
     background-color: var(--color-void-black);
     color: var(--color-star-white);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  html.dark {
+    background-color: var(--theme-bg-primary);
+    color: var(--theme-text-primary);
   }
 
   body {
     min-height: 100vh;
     background: linear-gradient(180deg, var(--color-void-black) 0%, var(--color-dark-space) 100%);
+  }
+
+  body.dark {
+    background: linear-gradient(180deg, var(--theme-bg-primary) 0%, var(--theme-bg-secondary) 100%);
   }
 
   /* Pixel Font for Headings */
