@@ -35,3 +35,16 @@
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# OS generated files
+.DS_Store
+
+# IDE / Editor
+.vscode/
+.idea/
+
+# Claude Code
+.claude/
+
+# Ruby LSP
+.ruby-lsp/
